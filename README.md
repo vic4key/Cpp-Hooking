@@ -25,7 +25,7 @@ INLHookingManager::instance().unhook(MessageBoxW);
 ## Installation
 
 1. Installed [Vutils](https://github.com/vic4key/Vutils.git) library
-2. Copy the `cpp-hooking` folder to your solution then `#include "path\to\cpp-hooking.h"`
+2. Copy the [cpp-hooking](cpp-hooking) folder to your solution then `#include "cpp-hooking\cpp-hooking.h"`
 3. Enjoy
 
 ## ToDo
