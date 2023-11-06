@@ -1,6 +1,8 @@
-# Cpp Hooking
+# Cpp Hooking (C++17 or later required)
 
-Very easy to setup function hooking (Inline hooking & IAT hooking) on both 32-bit & 64-bit 
+With this library, you can set up function hooking easily and writing less code.
+
+It supports both `Inline hooking` & `IAT hooking` on both 32-bit & 64-bit.
 
 ### Demo
 Eg. To hook/un-hook a function with `Inline Hooking` technique, you only need to write codes as the following
