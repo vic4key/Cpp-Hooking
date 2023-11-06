@@ -6,7 +6,7 @@ It supports both `Inline hooking` & `IAT hooking` on both 32-bit & 64-bit.
 
 *Note: This library uses the [Vutils INL/IAT Hooking](https://github.com/vic4key/Vutils/tree/54c7da0d9e1933932d357d0802a8e691b005388a) backend.*
 
-### Demo
+## Demo
 
 Eg. To hook/un-hook a function with the `Inline Hooking` technique, you only need to write codes as the following
 
