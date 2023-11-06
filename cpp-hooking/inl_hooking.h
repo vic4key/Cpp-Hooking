@@ -51,7 +51,9 @@ public:
 
     hooked.m_function = function;
     hooked.m_invoker.reset(new Invokable(FunctionPtr(hooked.m_trampoline)));
-    m_list[function] = std::move(hooked);
+
+    void* key = hooked.m_function;
+    m_list[key] = std::move(hooked);
 
     return true;
   }
@@ -97,7 +99,7 @@ public:
       throw "invoke the function that did not hook";
     }
 
-    auto& hooked = m_list[function];
+    auto& hooked = it->second;
 
     if (std::is_void<Return>::value)
     {
