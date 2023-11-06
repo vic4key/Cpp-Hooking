@@ -1,12 +1,14 @@
 # Cpp Hooking (C++17 or later required)
 
-With this library, you can set up function hooking easily and writing less code.
+With this library, you can set up function hooking easily and write less code.
 
 It supports both `Inline hooking` & `IAT hooking` on both 32-bit & 64-bit.
 
+*Note: This library uses the [Vutils INL/IAT Hooking](https://github.com/vic4key/Vutils.git) backend.*
+
 ### Demo
 
-Eg. To hook/un-hook a function with `Inline Hooking` technique, you only need to write codes as the following
+Eg. To hook/un-hook a function with the `Inline Hooking` technique, you only need to write codes as the following
 
 ```cpp
 #include "cpp-hooking/hooking.h"
@@ -25,7 +27,7 @@ INLHookingManager::instance().hook(MessageBoxW, hkMessageBoxW);
 INLHookingManager::instance().unhook(MessageBoxW);
 ```
 
-Eg. To hook/un-hook a function with `IAT Hooking` technique, you only need to write codes as the following
+Eg. To hook/un-hook a function with the `IAT Hooking` technique, you only need to write codes as the following
 
 ```cpp
 #include "cpp-hooking/hooking.h"
