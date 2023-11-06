@@ -9,17 +9,14 @@ class INLHookingManager : public SingletonT<INLHookingManager>
 {
   struct hooked_t
   {
-    std::wstring m_module;
     void* m_function;
     void* m_trampoline;
-    vu::INLHooking m_hooker;
+    INLHooking m_hooker;
     std::shared_ptr<Invokable> m_invoker;
 
-    hooked_t()
-      : m_module(L""), m_function(0), m_trampoline(0) {}
+    hooked_t() : m_function(0), m_trampoline(0) {}
 
-    hooked_t(void* function, const std::wstring& module = L"")
-      : m_module(module), m_function(function), m_trampoline(0) {}
+    hooked_t(void* function) : m_function(function), m_trampoline(0) {}
 
     hooked_t(const hooked_t& right)
     {
@@ -28,7 +25,6 @@ class INLHookingManager : public SingletonT<INLHookingManager>
 
     const hooked_t& operator=(const hooked_t& right)
     {
-      m_module = right.m_module;
       m_function = right.m_function;
       m_trampoline = right.m_trampoline;
       m_hooker = right.m_hooker;
@@ -81,17 +77,17 @@ public:
     return result;
   }
 
-  template<typename std_string, typename function_t>
-  bool hook(const std_string& module, const std_string& function, function_t&& hk_function)
+  template<typename StdString, typename Function>
+  bool hook(const StdString& module, const StdString& function, Function&& hk_function)
   {
-    auto ptr = this->get_proc_address<std_string>(module, function);
+    auto ptr = this->get_proc_address<StdString>(module, function);
     return ptr != nullptr ? this->hook(ptr, hk_function) : false;
   }
 
-  template<typename std_string>
-  bool unhook(const std_string& module, const std_string& function)
+  template<typename StdString>
+  bool unhook(const StdString& module, const StdString& function)
   {
-    auto ptr = this->get_proc_address<std_string>(module, function);
+    auto ptr = this->get_proc_address<StdString>(module, function);
     return ptr != nullptr ? this->unhook(ptr) : false;
   }
 
@@ -134,14 +130,14 @@ private:
     typedef LibraryW self;
   };
 
-  template<typename std_string>
-  void* get_proc_address(const std_string& module, const std_string& function)
+  template<typename StdString>
+  void* get_proc_address(const StdString& module, const StdString& function)
   {
     if (module.empty() || function.empty())
     {
       return nullptr;
     }
 
-    return LibraryT<std_string>::self::quick_get_proc_address(module, function);
+    return LibraryT<StdString>::self::quick_get_proc_address(module, function);
   }
 };
