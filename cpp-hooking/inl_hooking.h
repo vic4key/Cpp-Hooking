@@ -3,13 +3,12 @@
 #include "common.h"
 
 #include <vu>
-using namespace vu;
 
-class INLHookingManager : public SingletonT<INLHookingManager>
+class INLHookingManager : public vu::SingletonT<INLHookingManager>
 {
   struct inl_hooked_t: public hooked_t
   {
-    INLHooking m_hooker;
+    vu::INLHooking m_hooker;
 
     inl_hooked_t() : hooked_t() {}
 
@@ -78,14 +77,14 @@ public:
   template<typename StdString, typename Function>
   bool hook(const StdString& module, const StdString& function, Function&& hk_function)
   {
-    auto ptr = this->get_proc_address<StdString>(module, function);
+    auto ptr = get_proc_address<StdString>(module, function);
     return ptr != nullptr ? this->hook(ptr, hk_function) : false;
   }
 
   template<typename StdString>
   bool unhook(const StdString& module, const StdString& function)
   {
-    auto ptr = this->get_proc_address<StdString>(module, function);
+    auto ptr = get_proc_address<StdString>(module, function);
     return ptr != nullptr ? this->unhook(ptr) : false;
   }
 
@@ -110,32 +109,5 @@ public:
     }
 
     return 0;
-  }
-
-private:
-  template <typename T>
-  struct LibraryT;
-
-  template <>
-  struct LibraryT<std::string>
-  {
-    typedef LibraryA self;
-  };
-
-  template <>
-  struct LibraryT<std::wstring>
-  {
-    typedef LibraryW self;
-  };
-
-  template<typename StdString>
-  void* get_proc_address(const StdString& module, const StdString& function)
-  {
-    if (module.empty() || function.empty())
-    {
-      return nullptr;
-    }
-
-    return LibraryT<StdString>::self::quick_get_proc_address(module, function);
   }
 };

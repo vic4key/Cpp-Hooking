@@ -3,6 +3,7 @@
 #include "invokable.h"
 
 #include <memory>
+#include <vu>
 
 struct hooked_t
 {
@@ -29,3 +30,29 @@ struct hooked_t
     return *this;
   }
 };
+
+template <typename T>
+struct LibraryT;
+
+template <>
+struct LibraryT<std::string>
+{
+  typedef vu::LibraryA self;
+};
+
+template <>
+struct LibraryT<std::wstring>
+{
+  typedef vu::LibraryW self;
+};
+
+template<typename StdString>
+inline void* get_proc_address(const StdString& module, const StdString& function)
+{
+  if (module.empty() || function.empty())
+  {
+    return nullptr;
+  }
+
+  return LibraryT<StdString>::self::quick_get_proc_address(module, function);
+}
