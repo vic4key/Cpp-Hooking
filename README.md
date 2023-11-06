@@ -4,7 +4,7 @@ With this library, you can set up function hooking easily and write less code.
 
 It supports both `Inline hooking` & `IAT hooking` on both 32-bit & 64-bit.
 
-*Note: This library uses the [Vutils INL/IAT Hooking](https://github.com/vic4key/Vutils.git) backend.*
+*Note: This library uses the [Vutils INL/IAT Hooking](https://github.com/vic4key/Vutils/tree/54c7da0d9e1933932d357d0802a8e691b005388a) backend.*
 
 ### Demo
 
@@ -51,7 +51,7 @@ IATHookingManager::instance().unhook(Entry_MessageBoxW);
 
 ## Installation
 
-1. Installed [Vutils](https://github.com/vic4key/Vutils.git) library
+1. Installed [Vutils (revision 54c7da0)](https://github.com/vic4key/Vutils/tree/54c7da0d9e1933932d357d0802a8e691b005388a) library
 2. Copy the [cpp-hooking](cpp-hooking) folder to your solution then `#include "cpp-hooking\cpp-hooking.h"`
 3. Enjoy
 
