@@ -149,6 +149,12 @@
   <ItemGroup>
     <ClCompile Include="cpp-hooking.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpp-hooking\hooking.h" />
+    <ClInclude Include="cpp-hooking\iat_hooking.h" />
+    <ClInclude Include="cpp-hooking\inl_hooking.h" />
+    <ClInclude Include="cpp-hooking\invokable.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

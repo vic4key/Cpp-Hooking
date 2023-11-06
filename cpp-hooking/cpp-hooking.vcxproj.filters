@@ -15,4 +15,18 @@
       <Filter>Test Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cpp-hooking\invokable.h">
+      <Filter>Code Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp-hooking\inl_hooking.h">
+      <Filter>Code Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp-hooking\iat_hooking.h">
+      <Filter>Code Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cpp-hooking\hooking.h">
+      <Filter>Code Files</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
