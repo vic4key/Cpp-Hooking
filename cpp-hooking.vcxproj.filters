@@ -28,5 +28,8 @@
     <ClInclude Include="cpp-hooking\invokable.h">
       <Filter>Code Files</Filter>
     </ClInclude>
+    <ClInclude Include="cpp-hooking\common.h">
+      <Filter>Code Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

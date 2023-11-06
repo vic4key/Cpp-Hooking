@@ -1,39 +1,36 @@
 #pragma once
 
-#include "invokable.h"
+#include "common.h"
 
 #include <vu>
 using namespace vu;
 
 class INLHookingManager : public SingletonT<INLHookingManager>
 {
-  struct hooked_t
+  struct inl_hooked_t: public hooked_t
   {
-    void* m_function;
-    void* m_trampoline;
     INLHooking m_hooker;
-    std::shared_ptr<Invokable> m_invoker;
 
-    hooked_t() : m_function(0), m_trampoline(0) {}
+    inl_hooked_t() : hooked_t() {}
 
-    hooked_t(void* function) : m_function(function), m_trampoline(0) {}
-
-    hooked_t(const hooked_t& right)
+    inl_hooked_t(const inl_hooked_t& right)
     {
       *this = right;
     }
 
-    const hooked_t& operator=(const hooked_t& right)
+    const inl_hooked_t& operator=(const inl_hooked_t& right)
     {
-      m_function = right.m_function;
-      m_trampoline = right.m_trampoline;
-      m_hooker = right.m_hooker;
-      m_invoker = right.m_invoker;
+      if (this != &right)
+      {
+        hooked_t::operator=(right);
+        m_hooker = right.m_hooker;
+      }
+
       return *this;
     }
   };
 
-  std::unordered_map<void*, hooked_t> m_list;
+  std::unordered_map<void*, inl_hooked_t> m_list;
 
 public:
   template<typename Function>
@@ -45,14 +42,15 @@ public:
       return false;
     }
 
-    hooked_t hooked(function);
-    if (!hooked.m_hooker.attach(hooked.m_function, (void*)hk_function, &hooked.m_trampoline))
+    inl_hooked_t hooked;
+    if (!hooked.m_hooker.attach(function, (void*)hk_function, &hooked.m_trampoline))
     {
       return false;
     }
 
     using FunctionPtr = decltype(&hk_function);
 
+    hooked.m_function = function;
     hooked.m_invoker.reset(new Invokable(FunctionPtr(hooked.m_trampoline)));
     m_list[function] = std::move(hooked);
 
