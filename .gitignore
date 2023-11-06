@@ -1,32 +1,42 @@
-# Prerequisites
-*.d
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
 
-# Compiled Object files
-*.slo
-*.lo
+**/.vs
+**/.svn
+**/.git
+**/.vscode
+**/.history
+**/.DS_Store
+**/__pycache__
+**/ipch
+**/Debug
+**/Release
+*.user
+*.pdb
+*.idb
+*.suo
+*.sdf
+*.ncb
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
 *.lib
-
-# Executables
+*.obj
+*.dll
 *.exe
-*.out
-*.app
+*.sys
+*.pyc
+*.pyo
+*.zip
+*.7z
+*.bak
+*.vcs-cache
+/lib
+/obj
+/MD
+/MDd
+/MT
+/MTd
+/Win32
+/x64
+packages/

@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9bcd7c54-b464-42d7-b4b9-911324b0acee}</ProjectGuid>
+    <ProjectGuid>{d8715aa4-a7ff-4ee4-a508-8f26b5bec723}</ProjectGuid>
     <RootNamespace>cpphooking</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="cpp-hooking.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cpp-hooking\hooking.h" />
