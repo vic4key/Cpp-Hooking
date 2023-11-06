@@ -40,15 +40,6 @@ class INLHookingManager : public SingletonT<INLHookingManager>
   std::unordered_map<void*, hooked_t> m_list;
 
 public:
-  INLHookingManager()
-  {
-    m_list.clear();
-  }
-
-  virtual ~INLHookingManager()
-  {
-  }
-
   template<typename Function>
   bool hook(void* function, Function&& hk_function)
   {
@@ -67,7 +58,7 @@ public:
     using FunctionPtr = decltype(&hk_function);
 
     hooked.m_invoker.reset(new Invokable(FunctionPtr(hooked.m_trampoline)));
-    m_list[function] = hooked;
+    m_list[function] = std::move(hooked);
 
     return true;
   }
@@ -80,8 +71,14 @@ public:
       return false;
     }
 
-    auto& hooked = m_list[function];
-    return hooked.m_hooker.detach(function, &hooked.m_trampoline);
+    auto& hooked = it->second;
+    auto result = hooked.m_hooker.detach(function, &hooked.m_trampoline);
+    if (result)
+    {
+      m_list.erase(it);
+    }
+
+    return result;
   }
 
   template<typename std_string, typename function_t>
