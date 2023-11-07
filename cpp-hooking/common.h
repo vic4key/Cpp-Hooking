@@ -1,3 +1,9 @@
+/**
+ * @file   common.h
+ * @author Vic P.
+ * @brief  Header for common use.
+ */
+
 #pragma once
 
 #include "invokable.h"

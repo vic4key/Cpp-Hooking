@@ -1,9 +1,18 @@
+/**
+ * @file   inl_hooking.h
+ * @author Vic P.
+ * @brief  Header/Implementation for Inline Hooking Manager.
+ */
+
 #pragma once
 
 #include "common.h"
 
 #include <vu>
 
+/**
+ * @brief Inline Hooking Manager.
+ */
 class INLHookingManager : public vu::SingletonT<INLHookingManager>
 {
   struct inl_hooked_t: public hooked_t
@@ -32,6 +41,12 @@ class INLHookingManager : public vu::SingletonT<INLHookingManager>
   std::unordered_map<void*, inl_hooked_t> m_list;
 
 public:
+  /**
+   * @brief Hook a given function.
+   * @param[in] function    The function that want to hook.
+   * @param[in] hk_function The hooking function.
+   * @return true if succeeds otherwise return false.
+   */
   template<typename Function>
   bool hook(void* function, Function&& hk_function)
   {
@@ -58,6 +73,11 @@ public:
     return true;
   }
 
+  /**
+   * @brief Unhook a given function that was hooked.
+   * @param[in] entry The function that want to un-hook.
+   * @return true if succeeds otherwise return false.
+   */
   bool unhook(void* function)
   {
     auto it = m_list.find(function);
@@ -76,6 +96,13 @@ public:
     return result;
   }
 
+  /**
+   * @brief Hook a given function.
+   * @param[in] module      The module name.
+   * @param[in] function    The function name.
+   * @param[in] hk_function The hooking function.
+   * @return true if succeeds otherwise return false.
+   */
   template<typename StdString, typename Function>
   bool hook(const StdString& module, const StdString& function, Function&& hk_function)
   {
@@ -83,6 +110,12 @@ public:
     return ptr != nullptr ? this->hook(ptr, hk_function) : false;
   }
 
+  /**
+   * @brief Unhook a given function that was hooked.
+   * @param[in] module    The module name.
+   * @param[in] function  The function name.
+   * @return true if succeeds otherwise return false.
+   */
   template<typename StdString>
   bool unhook(const StdString& module, const StdString& function)
   {
@@ -90,6 +123,12 @@ public:
     return ptr != nullptr ? this->unhook(ptr) : false;
   }
 
+  /**
+   * @brief Invoke the original function.
+   * @param[in] entry The function that want to invoke.
+   * @param[in] args  The arguments that pass to the original function.
+   * @return Based on the result of the original function.
+   */
   template<typename Return, typename ... Args>
   Return invoke(void* function, Args ... args)
   {

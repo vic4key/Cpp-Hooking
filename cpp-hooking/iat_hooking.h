@@ -1,9 +1,18 @@
+/**
+ * @file   iat_hooking.h
+ * @author Vic P.
+ * @brief  Header/Implementation for IAT Hooking Manager.
+ */
+
 #pragma once
 
 #include "common.h"
 
 #include <vu>
 
+/**
+ * @brief IAT Hooking Manager.
+ */
 class IATHookingManager : public vu::SingletonT<IATHookingManager>
 {
   struct iat_hooked_t : public hooked_t {};
@@ -30,6 +39,12 @@ class IATHookingManager : public vu::SingletonT<IATHookingManager>
   }
 
 public:
+  /**
+   * @brief Hook a given function.
+   * @param[in] entry       The entry of function that want to hook ({ tartget name, module name, function name }).
+   * @param[in] hk_function The hooking function.
+   * @return true if succeeds otherwise return false.
+   */
   template<typename Function>
   bool hook(const Entry& entry, Function&& hk_function)
   {
@@ -59,6 +74,11 @@ public:
     return true;
   }
 
+  /**
+   * @brief Unhook a given function that was hooked.
+   * @param[in] entry The entry of function that want to un-hook ({ tartget name, module name, function name }).
+   * @return true if succeeds otherwise return false.
+   */
   bool unhook(const Entry& entry)
   {
     auto function = this->get_proc_address(entry);
@@ -84,6 +104,12 @@ public:
     return true;
   }
 
+  /**
+   * @brief Invoke the original function.
+   * @param[in] entry The entry of function that want to invoke ({ tartget name, module name, function name }).
+   * @param[in] args  The arguments that pass to the original function.
+   * @return Based on the result of the original function.
+   */
   template<typename Return, typename ... Args>
   Return invoke(const Entry& entry, Args ... args)
   {

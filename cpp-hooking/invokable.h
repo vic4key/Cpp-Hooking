@@ -1,3 +1,9 @@
+/**
+ * @file   invokable.h
+ * @author Vic P.
+ * @brief  Header/Implementation for the function-container that can hold any function prototype.
+ */
+
 #pragma once
 
 #include <any>

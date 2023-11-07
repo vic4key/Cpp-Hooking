@@ -6,7 +6,7 @@ It supports both `Inline hooking` & `IAT hooking` on both 32-bit & 64-bit.
 
 *Note: This library uses the [Vutils INL/IAT Hooking](https://github.com/vic4key/Vutils/tree/54c7da0d9e1933932d357d0802a8e691b005388a) backend.*
 
-## Demo
+## Demo & Example
 
 Eg. To hook/un-hook a function with the `Inline Hooking` technique, you only need to write codes as the following
 
@@ -48,6 +48,10 @@ IATHookingManager::instance().hook(Entry_MessageBoxW, hkMessageBoxW);
 // Perform un-hooking
 IATHookingManager::instance().unhook(Entry_MessageBoxW);
 ```
+
+## Documentation
+
+See doc comments in the code files inside the [cpp-hooking](cpp-hooking) folder.
 
 ## Installation
 
