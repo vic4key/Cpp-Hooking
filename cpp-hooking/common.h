@@ -11,26 +11,29 @@
 #include <memory>
 #include <vu>
 
-struct hooked_t
+/**
+ * @brief The structure that holds the hooking information of a function.
+ */
+struct Hooked
 {
   void* m_function;
   void* m_trampoline;
   std::shared_ptr<Invokable> m_invoker;
 
-  hooked_t() : m_function(nullptr), m_trampoline(nullptr) {}
+  Hooked() : m_function(nullptr), m_trampoline(nullptr) {}
 
-  hooked_t(const hooked_t& right)
+  Hooked(const Hooked& right)
   {
     *this = right;
   }
 
-  const hooked_t& operator=(const hooked_t& right)
+  const Hooked& operator=(const Hooked& right)
   {
     if (this != &right)
     {
-      m_function = right.m_function;
+      m_function   = right.m_function;
       m_trampoline = right.m_trampoline;
-      m_invoker = right.m_invoker;
+      m_invoker    = right.m_invoker;
     }
 
     return *this;
@@ -52,6 +55,12 @@ struct LibraryT<std::wstring>
   typedef vu::LibraryW self;
 };
 
+/**
+ * @brief Get the address of an exported function from the given dynamic-link module.
+ * @param   module    The module name.
+ * @param   function  The function name.
+ * @returns The address of the function or null.
+ */
 template<typename StdString>
 inline void* get_proc_address(const StdString& module, const StdString& function)
 {

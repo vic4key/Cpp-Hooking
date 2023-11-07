@@ -15,22 +15,22 @@
  */
 class INLHookingManager : public vu::SingletonT<INLHookingManager>
 {
-  struct inl_hooked_t: public hooked_t
+  struct INL_Hooked: public Hooked
   {
     vu::INLHooking m_hooker;
 
-    inl_hooked_t() : hooked_t() {}
+    INL_Hooked() : Hooked() {}
 
-    inl_hooked_t(const inl_hooked_t& right)
+    INL_Hooked(const INL_Hooked& right)
     {
       *this = right;
     }
 
-    const inl_hooked_t& operator=(const inl_hooked_t& right)
+    const INL_Hooked& operator=(const INL_Hooked& right)
     {
       if (this != &right)
       {
-        hooked_t::operator=(right);
+        Hooked::operator=(right);
         m_hooker = right.m_hooker;
       }
 
@@ -38,7 +38,7 @@ class INLHookingManager : public vu::SingletonT<INLHookingManager>
     }
   };
 
-  std::unordered_map<void*, inl_hooked_t> m_list;
+  std::unordered_map<void*, INL_Hooked> m_list;
 
 public:
   /**
@@ -56,7 +56,7 @@ public:
       return false;
     }
 
-    inl_hooked_t hooked;
+    INL_Hooked hooked;
     if (!hooked.m_hooker.attach(function, (void*)hk_function, &hooked.m_trampoline))
     {
       return false;

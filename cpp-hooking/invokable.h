@@ -9,6 +9,9 @@
 #include <any>
 #include <functional>
 
+/**
+ * @brief The function-container that can hold any function prototype.
+ */
 struct Invokable
 {
   Invokable() {}

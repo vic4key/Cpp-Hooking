@@ -15,9 +15,9 @@
  */
 class IATHookingManager : public vu::SingletonT<IATHookingManager>
 {
-  struct iat_hooked_t : public hooked_t {};
+  struct IAT_Hooked : public Hooked {};
 
-  std::unordered_map<void*, iat_hooked_t> m_list;
+  std::unordered_map<void*, IAT_Hooked> m_list;
 
   using Entry = vu::IATHookingA::Entry;
 
@@ -48,7 +48,7 @@ public:
   template<typename Function>
   bool hook(const Entry& entry, Function&& hk_function)
   {
-    iat_hooked_t hooked;
+    IAT_Hooked hooked;
 
     auto ret = this->hooker().install(entry.target, entry.module, entry.function,
       (void*)hk_function, &hooked.m_trampoline);
