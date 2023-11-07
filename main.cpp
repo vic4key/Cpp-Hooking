@@ -37,31 +37,35 @@ int WINAPI iat_hkMessageBoxW(HWND hWnd, LPCWSTR lpText, LPCWSTR lpCaption, UINT 
   return IATHookingManager::instance().invoke<int>(Entry_MessageBoxW, hWnd, lpText, lpCaption, uType);
 }
 
+#include <vu> // for `vu::get_console_window()`
+
 int main()
 {
+  auto hwnd = vu::get_console_window();
+
   // Inline Hooking
 
   INLHookingManager::instance().hook(MessageBoxA, hkMessageBoxA);
   INLHookingManager::instance().hook(MessageBoxW, hkMessageBoxW);
-  MessageBoxA(nullptr,  "The first message.",  "MessageBoxA", MB_OK); // text is replaced by "INL Hooked"
-  MessageBoxW(nullptr, L"The first message.", L"MessageBoxW", MB_OK); // text is replaced by "INL Hooked"
+  MessageBoxA(hwnd, "The first message.", "MessageBoxA", MB_OK); // text is replaced by "INL Hooked"
+  MessageBoxW(hwnd, L"The first message.", L"MessageBoxW", MB_OK); // text is replaced by "INL Hooked"
 
   INLHookingManager::instance().unhook(MessageBoxA);
   INLHookingManager::instance().unhook(MessageBoxW);
-  MessageBoxA(nullptr,  "The second message.",  "MessageBoxA", MB_OK);
-  MessageBoxW(nullptr, L"The second message.", L"MessageBoxW", MB_OK);
+  MessageBoxA(hwnd, "The second message.", "MessageBoxA", MB_OK);
+  MessageBoxW(hwnd, L"The second message.", L"MessageBoxW", MB_OK);
 
   // IAT Hooking
 
   IATHookingManager::instance().hook(Entry_MessageBoxA, iat_hkMessageBoxA);
   IATHookingManager::instance().hook(Entry_MessageBoxW, iat_hkMessageBoxW);
-  MessageBoxA(nullptr,  "The first message.",  "MessageBoxA", MB_OK); // text is replaced by "IAT Hooked"
-  MessageBoxW(nullptr, L"The first message.", L"MessageBoxW", MB_OK); // text is replaced by "IAT Hooked"
+  MessageBoxA(hwnd, "The first message.", "MessageBoxA", MB_OK); // text is replaced by "IAT Hooked"
+  MessageBoxW(hwnd, L"The first message.", L"MessageBoxW", MB_OK); // text is replaced by "IAT Hooked"
 
   IATHookingManager::instance().unhook(Entry_MessageBoxA);
   IATHookingManager::instance().unhook(Entry_MessageBoxW);
-  MessageBoxA(nullptr,  "The second message.",  "MessageBoxA", MB_OK);
-  MessageBoxW(nullptr, L"The second message.", L"MessageBoxW", MB_OK);
+  MessageBoxA(hwnd, "The second message.", "MessageBoxA", MB_OK);
+  MessageBoxW(hwnd, L"The second message.", L"MessageBoxW", MB_OK);
 
   return 0;
 }
