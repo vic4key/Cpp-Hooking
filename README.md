@@ -56,7 +56,7 @@ See doc comments in the code files inside the [cpp-hooking](cpp-hooking) folder.
 ## Installation
 
 1. Installed [Vutils (revision 54c7da0)](https://github.com/vic4key/Vutils/tree/54c7da0d9e1933932d357d0802a8e691b005388a) library
-2. Copy the [cpp-hooking](cpp-hooking) folder to your solution then `#include "cpp-hooking\cpp-hooking.h"`
+2. Copy the [cpp-hooking](cpp-hooking) folder to your solution then `#include "cpp-hooking\hooking.h"`
 3. Enjoy
 
 ## ToDo
