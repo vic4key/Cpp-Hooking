@@ -6,8 +6,10 @@
 
 #pragma once
 
+#ifndef _ANY_
 #include <any>
 #include <functional>
+#endif  // _ANY_
 
 /**
  * @brief The function-container that can hold any function prototype.

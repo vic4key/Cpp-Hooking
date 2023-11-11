@@ -1,7 +1,12 @@
 // main.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
+#include <vu>
+using namespace vu;
+
+#ifndef VU_HAS_CPP_HOOKING
 #include "cpp-hooking/hooking.h"
+#endif
 
 // Inline Hooking
 
